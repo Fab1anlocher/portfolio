@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio Fabian Locher</title>
+<meta name="description" content="Fabian Locher, Business Engineer bei der Finform AG in Bern und Master-Student Wirtschaftsinformatik an der BFH. Werdegang, Projekte und Kontakt in einem begehbaren Arbeitszimmer.">
+<meta name="author" content="Fabian Locher">
+<meta name="theme-color" content="#1d1712">
+<link rel="canonical" href="%SITE_URL%/">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="de_CH">
+<meta property="og:title" content="Fabian Locher · Business Engineer und Wirtschaftsinformatiker">
+<meta property="og:description" content="Werdegang, Projekte und Kontakt in einem begehbaren Arbeitszimmer.">
+<meta property="og:url" content="%SITE_URL%/">
+<meta property="og:image" content="%SITE_URL%/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/src/styles/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Fabian Locher",
+  "jobTitle": "Business Engineer",
+  "worksFor": { "@type": "Organization", "name": "Finform AG" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Berner Fachhochschule BFH" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Burgdorf", "addressRegion": "BE", "addressCountry": "CH" },
+  "email": "mailto:fabianlocher55@gmail.com",
+  "sameAs": ["https://www.linkedin.com/in/fabian-locher"],
+  "url": "%SITE_URL%/"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#cv">Direkt zum Lebenslauf</a>
+
+<!-- ===== Bühne: das Arbeitszimmer. Ohne WebGL oder JavaScript bleibt sie eine ruhige Kopfzeile. ===== -->
+<header class="stage" id="stage" data-state="static" data-view="0">
+  <div class="stage-canvas" id="mount" aria-hidden="true"></div>
+
+  <div class="stage-top">
+    <div class="id-card">
+      <h1>Fabian Locher</h1>
+      <p class="id-role">Business Engineer bei der Finform AG · Master-Student Wirtschaftsinformatik, BFH</p>
+      <p class="id-claim">Ich arbeite zwischen Fachbereich und Entwicklung: Anforderungen klären, Fehler eingrenzen, Releases testen.</p>
+      <div class="id-actions">
+        <a class="btn btn-acc" href="#kontakt" data-open="kontakt">Kontakt</a>
+        <a class="btn btn-ghost" href="#cv">Lebenslauf lesen</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="stage-bottom">
+    <p class="stage-hint" id="hint">Beruf am Computer, alles andere im Zimmer. Einfach anklicken.</p>
+  </div>
+
+  <div class="caption" id="caption" hidden>
+    <p class="caption-title"></p>
+    <p class="caption-text"></p>
+    <button type="button" class="btn btn-ghost" id="caption-back">Zurück in den Raum</button>
+  </div>
+
+  <div class="hotspots" id="hotspots"></div>
+  <div class="tip" id="tip" aria-hidden="true"><span class="tip-title" id="tip-title"></span><span id="tip-sub"></span></div>
+  <div class="stage-load" id="load" aria-hidden="true">Arbeitszimmer wird eingerichtet</div>
+</header>
+
+<!-- ===== Lebenslauf als Text: die einzige Quelle für alle Inhalte. Der Computer in der Szene zeigt Kopien dieser Abschnitte. ===== -->
+<main class="cv" id="cv">
+  <div class="cv-inner">
+
+    <dl class="facts" aria-label="Kurzprofil">
+      <div><dt>Aktuell</dt><dd>Business Engineer, Finform AG</dd></div>
+      <div><dt>Studium</dt><dd>MSc Wirtschaftsinformatik, BFH</dd></div>
+      <div><dt>Schwerpunkte</dt><dd>Anforderungen, Testing, Datenanalyse</dd></div>
+      <div><dt>Standort</dt><dd>Burgdorf, Kanton Bern</dd></div>
+    </dl>
+
+    <section class="sec" id="ueber" aria-labelledby="h-ueber">
+      <h2 id="h-ueber">Über mich</h2>
+      <div class="prose">
+        <p class="lead">Ich bin Business Engineer bei der Finform AG in Bern und studiere im Master Wirtschaftsinformatik an der Berner Fachhochschule. Den Bachelor im selben Fach habe ich 2026 abgeschlossen.</p>
+        <p>Meine Arbeit liegt zwischen Anwendern und Entwicklung: Anforderungen klären, Incidents und Tickets analysieren, Bug-Stories schreiben, Releases testen, Dokumentation pflegen. Dazu verantworte ich Changes und automatisiere Abläufe, wo sich Handarbeit wiederholt.</p>
+        <p>Was mich daran interessiert, sind Daten und die Frage, wie aus ihnen eine belastbare Aussage wird. Das übe ich neben Arbeit und Master an eigenen Projekten, meist mit Zahlen aus dem Schweizer Sport.</p>
+        <p class="aside">Aufgewachsen im Emmental, wohnhaft in Burgdorf. Neben der Arbeit schaue ich viel Sport, gehe gern ins Stadion, reise und spiele ab und zu Squash.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="erfahrung" aria-labelledby="h-erfahrung">
+      <h2 id="h-erfahrung">Werdegang</h2>
+      <ol class="timeline">
+        <li class="entry is-current">
+          <p class="entry-time">seit Juni 2025</p>
+          <div class="entry-body">
+            <h3>Business Engineer</h3>
+            <p class="entry-org">Finform AG, Bern</p>
+            <ul>
+              <li>Analyse, Priorisierung und Bearbeitung von Incidents und Tickets, inklusive Log-Analyse</li>
+              <li>Bug-Stories für die Entwicklung, Testing von Features, Releases und Bugfixes</li>
+              <li>Verantwortung für interne Changes und deren Umsetzung</li>
+              <li>Pflege der Produktdokumentation, Mitarbeit an der Jira-Migration und an Automatisierungslösungen</li>
+            </ul>
+          </div>
+        </li>
+        <li class="entry">
+          <p class="entry-time">Juni 2021 bis Mai 2025</p>
+          <div class="entry-body">
+            <h3>Account Manager</h3>
+            <p class="entry-org">Radio neo1, Langnau</p>
+            <ul>
+              <li>Eigenständige Akquise potenzieller Kunden</li>
+              <li>Beratung der Kunden persönlich und telefonisch</li>
+              <li>Aufbau nachhaltiger Kundenbeziehungen für das Radio-Medium</li>
+            </ul>
+          </div>
+        </li>
+        <li class="entry">
+          <p class="entry-time">Januar bis Mai 2021</p>
+          <div class="entry-body">
+            <h3>Rekrutenschule</h3>
+            <p class="entry-org">Schweizer Armee, Thun</p>
+            <ul>
+              <li>Truppenbuchhalter, Führung der Kompanie-Buchhaltung</li>
+              <li>Allgemeine militärische Grundausbildung</li>
+            </ul>
+          </div>
+        </li>
+        <li class="entry">
+          <p class="entry-time">August bis Dezember 2020</p>
+          <div class="entry-body">
+            <h3>HR-Assistent</h3>
+            <p class="entry-org">Société des Produits Nestlé, Konolfingen</p>
+            <ul>
+              <li>Personalrelevante Auswertungen und Reporting via SAP</li>
+              <li>Bewerbermanagement inklusive Korrespondenz und Vorevaluation</li>
+              <li>Mitentwicklung einer Mitarbeiter-App, HR-Support und Dokumentation</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="sec" id="projekte" aria-labelledby="h-projekte">
+      <h2 id="h-projekte">Projekte</h2>
+      <div class="projects">
+        <article class="project">
+          <p class="project-tag">Eigenprojekt · Machine Learning</p>
+          <h3>Schwingen ML: Gang-Prognose</h3>
+          <p>Datengetriebene, erklärbare Prognose für Schwingen-Gänge mit Modell, Schwinger-Profilen, Karte und Analyse. Informativ, kein Wettangebot.</p>
+          <a class="project-link" href="https://schwingen-ml.vercel.app/" target="_blank" rel="noopener">schwingen-ml.vercel.app<span aria-hidden="true"> ↗</span></a>
+        </article>
+        <article class="project">
+          <p class="project-tag">Eigenprojekt · Datenjournalismus</p>
+          <h3>Blauer Himmel, mehr Nummern?</h3>
+          <p>Eine Hornussen-Datengeschichte: 13'793 Meisterschaftsspiele von 2013 bis 2025, verbunden mit Wetterdaten aus der ERA5-Reanalyse. Ergebnis: Bei wolkenlosem Himmel fallen 51 Prozent mehr Nummern.</p>
+          <a class="project-link" href="https://hornussen.vercel.app/" target="_blank" rel="noopener">hornussen.vercel.app<span aria-hidden="true"> ↗</span></a>
+        </article>
+        <article class="project">
+          <p class="project-tag">Bachelorarbeit · BFH · 2026</p>
+          <h3>KI-personalisierte Abstimmungswerbung</h3>
+          <p>Wie wirkt Abstimmungswerbung, die eine KI auf die einzelne Person zuschneidet? Dafür habe ich einen Werbe-Generator und eine Umfrageplattform gebaut und die Wirkung in einem Experiment mit 125 Teilnehmenden gemessen.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="sec" id="ausbildung" aria-labelledby="h-ausbildung">
+      <h2 id="h-ausbildung">Ausbildung</h2>
+      <ol class="timeline">
+        <li class="entry is-current">
+          <p class="entry-time">Aug. 2026 bis Juni 2028</p>
+          <div class="entry-body">
+            <h3>Master of Science, Wirtschaftsinformatik</h3>
+            <p class="entry-org">Berner Fachhochschule BFH</p>
+          </div>
+        </li>
+        <li class="entry">
+          <p class="entry-time">Aug. 2022 bis Juli 2026</p>
+          <div class="entry-body">
+            <h3>Bachelor of Science, Wirtschaftsinformatik</h3>
+            <p class="entry-org">Berner Fachhochschule BFH</p>
+            <p>Vertiefung Applied Artificial Intelligence sowie Project Management &amp; Agility. Bachelorarbeit zu KI-personalisierter Abstimmungswerbung.</p>
+          </div>
+        </li>
+        <li class="entry">
+          <p class="entry-time">2017 bis 2020</p>
+          <div class="entry-body">
+            <h3>Kaufmann EFZ mit Berufsmatura</h3>
+            <p class="entry-org">WKS KV Bildung · Schwerpunkt Wirtschaft und Recht</p>
+            <p>Praktische Ausbildung bei Nestlé in Konolfingen.</p>
+          </div>
+        </li>
+      </ol>
+      <h3 class="sub">Zertifikate</h3>
+      <ul class="chips">
+        <li>Requirements Engineering · IREB · 2024</li>
+        <li>Berufsbildner · Lehrwerk · 2025</li>
+      </ul>
+    </section>
+
+    <section class="sec" id="skills" aria-labelledby="h-skills">
+      <h2 id="h-skills">Skills und Sprachen</h2>
+      <dl class="skillset">
+        <div><dt>Täglich im Job</dt><dd><ul class="chips"><li>Jira</li><li>Confluence</li></ul></dd></div>
+        <div><dt>Wöchentlich</dt><dd><ul class="chips"><li>SQL</li><li>MS Office</li></ul></dd></div>
+        <div><dt>In eigenen Projekten</dt><dd><ul class="chips"><li>Python</li><li>GitHub</li><li>Figma</li></ul></dd></div>
+        <div><dt>Grundlagen</dt><dd><ul class="chips"><li>R</li><li>SAP</li><li>HTML und CSS</li></ul></dd></div>
+        <div><dt>Arbeitsweise</dt><dd>Anforderungen klären, Bug-Stories schreiben, Testing, Changes verantworten, Dokumentation pflegen</dd></div>
+      </dl>
+      <h3 class="sub">Sprachen</h3>
+      <ul class="langs">
+        <li><strong>Deutsch</strong><span class="lang-level">Muttersprache · im Alltag Berndeutsch</span></li>
+        <li><strong>Englisch</strong><span class="lang-level">Arbeitssprache</span></li>
+        <li><strong>Französisch</strong><span class="lang-level">Solide Grundlage</span></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="kontakt" aria-labelledby="h-kontakt">
+      <h2 id="h-kontakt">Kontakt</h2>
+      <div class="contact">
+        <p class="contact-lead">Am einfachsten per E-Mail. Den vollständigen Lebenslauf mit Zeugnissen schicke ich gern auf Anfrage.</p>
+        <div class="contact-row">
+          <a class="contact-mail" href="mailto:fabianlocher55@gmail.com">fabianlocher55@gmail.com</a>
+          <button type="button" class="btn btn-line" data-copy="fabianlocher55@gmail.com">Adresse kopieren</button>
+        </div>
+        <div class="contact-row">
+          <a class="btn btn-line" href="https://www.linkedin.com/in/fabian-locher" target="_blank" rel="noopener">LinkedIn-Profil<span aria-hidden="true"> ↗</span></a>
+          <span class="contact-place">Burgdorf, Kanton Bern</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="cv-inner">
+    <span>Fabian Locher · Burgdorf, Kanton Bern</span>
+    <a href="#stage">Zurück ins Arbeitszimmer</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
