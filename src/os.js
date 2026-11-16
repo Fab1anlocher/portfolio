@@ -129,7 +129,7 @@ export function createOS({ stage, cloneSection, onExit, toast, slurp }) {
     w.className = 'win' + (app.dark ? ' win-dark' : '');
     w.tabIndex = -1;
     w.setAttribute('aria-label', app.label);
-    w.innerHTML = `<header class="win-bar"><span class="win-grip" aria-hidden="true"><i></i><i></i></span><span class="win-title"></span><button type="button" class="win-x" aria-label="Fenster schliessen">×</button></header><div class="win-body"></div>`;
+    w.innerHTML = `<header class="win-bar"><span class="win-grip" aria-hidden="true"><i></i><i></i></span><span class="win-title"></span><button type="button" class="win-x" aria-label="Fenster schliessen">×</button></header><div class="win-body" tabindex="0"></div>`;
     $('.win-title', w).textContent = app.title;
     const body = $('.win-body', w);
 

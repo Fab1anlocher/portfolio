@@ -206,10 +206,10 @@ export function createTV({ stage, onExit }) {
   el.innerHTML = `
     <div class="tv-set">
       <div class="tv-screen"></div>
-      <div class="tv-info" aria-live="polite"><p class="tv-ch"></p><p class="tv-line"></p><p class="tv-note" hidden></p><a class="tv-link" target="_blank" rel="noopener" hidden></a></div>
+      <div class="tv-info" aria-live="polite"><p class="tv-ch"></p><p class="tv-line"></p><p class="tv-note" hidden></p><a class="tv-link" href="https://schwingen-ml.vercel.app/" target="_blank" rel="noopener" hidden></a></div>
     </div>
     <div class="tv-remote" role="group" aria-label="Fernbedienung">
-      <button type="button" class="rm-power" data-rm="off" aria-label="Fernseher ausschalten, zurück ins Zimmer">Aus</button>
+      <button type="button" class="rm-power" data-rm="off" aria-label="Aus: Fernseher ausschalten und zurück ins Zimmer">Aus</button>
       <div class="rm-nums"></div>
       <div class="rm-ch"><button type="button" data-rm="up" aria-label="Programm weiter">▲</button><span>Programm</span><button type="button" data-rm="down" aria-label="Programm zurück">▼</button></div>
       <button type="button" class="rm-a" data-rm="a" aria-label="A: Ball kicken">A</button>

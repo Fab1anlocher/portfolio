@@ -37,7 +37,7 @@ const HOT = {
 };
 // Bildlegenden zu den Nahansichten (Standpunkt -> Titel, Text)
 const CAPTIONS = {
-  3: ['Unterwegs', 'Ein paar Bilder von Reisen. Zuletzt war ich mit Freunden im Camper im Südwesten der USA und in Kalifornien. Bild anklicken für den Ort.'],
+  3: ['Unterwegs', 'Ein paar Bilder von Reisen. Zuletzt war ich mit Freunden im Camper im Südwesten der USA und in Kalifornien. Ein Bild auswählen zeigt den Ort, die Pfeiltasten blättern.'],
   5: ['Zuhause', 'Burgdorf. Hier wohne ich, aufgewachsen bin ich ein paar Kilometer weiter im Emmental.'],
 };
 // Ein Satz pro Bild der Fotowand, bewusst schlicht gehalten
@@ -136,7 +136,10 @@ $$('[data-open]', stage).forEach((a) => {
 });
 $('#caption-back').addEventListener('click', () => { if (scene) scene.goTo(0); });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && scene && (scene.view === 3 || scene.view === 5) && !stage.dataset.mode) scene.goTo(0);
+  if (!scene || stage.dataset.mode) return;
+  if (e.key === 'Escape' && (scene.view === 3 || scene.view === 5)) scene.goTo(0);
+  // Auf der Fotowand blättern die Pfeiltasten durch die Bilder
+  if (scene.view === 3 && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { e.preventDefault(); scene.stepPhoto(e.key === 'ArrowRight' ? 1 : -1); }
 });
 
 // ---------- 3D-Arbeitszimmer ----------
@@ -245,7 +248,7 @@ class Scene {
 
     this.ray = new THREE.Raycaster();
     this.ptr = new THREE.Vector2(-9, -9);
-    const v0 = VIEWS[0];
+    const v0 = this.pose(0);
     this.camState = {
       pos: new THREE.Vector3().fromArray(v0.pos),
       tgt: new THREE.Vector3().fromArray(v0.tgt),
@@ -314,12 +317,17 @@ class Scene {
   buildHotspots() {
     this.hots = [];
     this.hotLayer.replaceChildren();
-    this.room.clickables.forEach((c) => {
+    // Wichtiges zuerst: so erreicht die Tabulatortaste den Computer vor dem Bürostuhl
+    const order = ['monitor', 'tv', 'game', 'photos', 'burgdorf', 'mate', 'squash', 'chair'];
+    const rank = (c) => { const i = order.indexOf(c.id); return i < 0 ? order.length : i; };
+    [...this.room.clickables].sort((a, b) => rank(a) - rank(b)).forEach((c) => {
       const l = LABELS[c.id] || [c.label, c.hint || ''];
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'hot';
-      b.setAttribute('aria-label', l[0] + ': ' + l[1]);
+      b.dataset.id = c.id;
+      // Der Name für Screenreader beginnt mit dem sichtbaren Text
+      b.setAttribute('aria-label', HOT[c.id] ? HOT[c.id][0] + '. ' + l[0] + ': ' + l[1] : l[0] + ': ' + l[1]);
       if (HOT[c.id]) {
         b.classList.add('hot-cv', 'hot-' + HOT[c.id][1]);
         const s = document.createElement('span');
@@ -368,6 +376,21 @@ class Scene {
       }
     }
     return null;
+  }
+
+  // Standpunkt je nach Format: im Hochformat rückt die Kamera näher an Schreibtisch und Fernseher
+  pose(i) {
+    if (i === 0 && this.cam.aspect < 0.8) return { pos: [1.5, 1.62, 0.7], tgt: [-0.62, 1.02, -1.75], fov: 50, minH: 56 };
+    return VIEWS[i];
+  }
+
+  // Pfeiltasten auf der Fotowand: zum nächsten oder vorherigen Bild
+  stepPhoto(dir) {
+    const list = this.room.photos;
+    const i = this.photoSticky ? list.indexOf(this.photoSticky) : (dir > 0 ? -1 : 0);
+    this.photoSticky = list[(i + dir + list.length) % list.length];
+    this.ptr.set(-9, -9);
+    this.setPhoto(this.photoSticky);
   }
 
   // Einzelnes Bild der Fotowand unter dem Zeiger
@@ -444,7 +467,7 @@ class Scene {
   }
 
   goTo(i, instant) {
-    const v = VIEWS[i];
+    const v = this.pose(i);
     if (!v) return;
     const T = this.THREE;
     this.from = { pos: this.camState.pos.clone(), tgt: this.camState.tgt.clone(), fov: this.camState.fov, minH: this.camState.minH };
@@ -584,8 +607,8 @@ class Scene {
     this.cam.lookAt(look);
 
     if (!reducedMotion()) this.room.tick(t, dt);
-    // Live-Bild für den Fernseher im Zimmer, jedes zweite Bild reicht
-    if (this.tvTex && (this.frames & 1) === 0) { tv.draw(now); this.tvTex.needsUpdate = true; }
+    // Live-Bild für den Fernseher im Zimmer: 15 Bilder pro Sekunde reichen für die kleine Fläche
+    if (this.tvTex && now - (this.tvT || 0) > 66) { this.tvT = now; tv.draw(now); this.tvTex.needsUpdate = true; }
 
     // Markierungen an die Gegenstände heften
     const w = this.mount.clientWidth, h = this.mount.clientHeight;
@@ -640,7 +663,8 @@ function hasWebGL() {
 }
 
 async function boot() {
-  if (!stage || !hasWebGL()) return;          // bleibt die ruhige Kopfzeile
+  if (!stage) return;
+  if (!hasWebGL()) { stage.dataset.state = 'static'; return; }     // ohne 3D: ruhige Kopfzeile
   stage.dataset.state = 'loading';
   try {
     // Three.js wird erst jetzt nachgeladen, als eigenes Paket und nur mit den Teilen, die die Szene braucht
