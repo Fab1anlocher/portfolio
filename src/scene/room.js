@@ -438,6 +438,62 @@ export function buildRoom(THREE, opts) {
   root.add(mate);
   clickables.push({ id: 'mate', label: 'Mate', hint: 'Lieblingsgetränk', group: mate, anchor: new THREE.Vector3(0, 0.2, 0) });
 
+  // ---------- Schachbrett auf dem Schreibtisch (klickbar) ----------
+  const chess = new THREE.Group();
+  chess.position.set(0.68, 0.7655, -1.66);
+  chess.rotation.y = -0.35;
+  const boardTex = (() => {
+    const c = document.createElement('canvas');
+    c.width = 256; c.height = 256;
+    const g = c.getContext('2d');
+    for (let f = 0; f < 8; f++) for (let r = 0; r < 8; r++) {
+      g.fillStyle = (f + r) % 2 ? '#7a5a3c' : '#eadcc2';
+      g.fillRect(f * 32, r * 32, 32, 32);
+    }
+    const t = new THREE.CanvasTexture(c);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  })();
+  chess.add(box(0.226, 0.012, 0.226, lam(0x4a3322), 0, 0.006, 0));
+  const boardTop = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 0.2), new THREE.MeshLambertMaterial({ map: boardTex }));
+  boardTop.rotation.x = -Math.PI / 2;
+  boardTop.position.y = 0.0122;
+  chess.add(boardTop);
+  // Feld (Linie a bis h = 0 bis 7, Reihe 1 bis 8 = 0 bis 7) in Brettkoordinaten
+  const sq = (f, r) => [-0.0875 + f * 0.025, 0.0875 - r * 0.025];
+  const pieceWhite = lam(0xf1ece2), pieceBlack = lam(0x24211f);
+  const piece = (mat, f, r, h) => {
+    const p = new THREE.Group();
+    p.add(cyl(0.0085, 0.0105, 0.004, 14, mat, 0, 0.002, 0));
+    p.add(cyl(0.0045, 0.0075, h, 14, mat, 0, 0.004 + h / 2, 0));
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.0062, 12, 8), mat);
+    head.position.y = 0.006 + h;
+    head.castShadow = true;
+    p.add(head);
+    const [x, z] = sq(f, r);
+    p.position.set(x, 0.0122, z);
+    chess.add(p);
+    return p;
+  };
+  piece(pieceWhite, 4, 0, 0.03); piece(pieceBlack, 4, 7, 0.03);            // Könige
+  piece(pieceWhite, 3, 0, 0.026); piece(pieceBlack, 3, 7, 0.026);          // Damen
+  [4, 3].forEach((f) => { piece(pieceWhite, f, 3, 0.012); piece(pieceBlack, f, 4, 0.012); });
+  const knight = piece(pieceWhite, 6, 0, 0.018);                           // Springer auf g1
+  const chessHit = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.09, 0.26), new THREE.MeshBasicMaterial({ visible: false }));
+  chessHit.position.y = 0.04;
+  chess.add(chessHit);
+  chess.traverse((o) => { if (o.isMesh && o !== chessHit) o.receiveShadow = true; });
+  root.add(chess);
+  clickables.push({ id: 'chess', label: 'Schachbrett', hint: 'Eine Partie', group: chess, anchor: new THREE.Vector3(0, 0.07, 0) });
+  // Ein Klick zieht den Springer: Sg1-f3, beim nächsten Klick zurück
+  let knightT = -1, knightFrom = sq(6, 0), knightTo = sq(5, 2);
+  const chessApi = {
+    move() {
+      if (knightT >= 0) return;
+      knightT = 0;
+    },
+  };
+
   // ---------- Zimmerpflanze, rechte Ecke ----------
   // Monstera: Topf aus Zylindern, Blaetter als extrudierte, gewoelbte Fiederform.
   const plant = new THREE.Group();
@@ -555,9 +611,11 @@ export function buildRoom(THREE, opts) {
       g.position.set(x + w / 2, y, 0);
       g.add(box(w + 0.02, PH + 0.02, 0.018, frameMat, 0, 0, 0));
       g.add(plane(w + 0.008, PH + 0.008, matMat, 0, 0, 0.0095));
-      g.add(plane(w - 0.02, PH - 0.02, new THREE.MeshBasicMaterial({ map: photoTex('photos/' + name + '.jpg') }), 0, 0, 0.0105));
+      // Zuerst nur kleine Vorschauen; die volle Auflösung lädt erst, wenn jemand die Fotowand öffnet
+      const mat = new THREE.MeshBasicMaterial({ map: photoTex('photos/thumb/' + name + '.jpg') });
+      g.add(plane(w - 0.02, PH - 0.02, mat, 0, 0, 0.0105));
       photos.add(g);
-      photoList.push({ id: name, group: g });
+      photoList.push({ id: name, group: g, mat });
       x += w + GAP;
     });
   });
@@ -567,30 +625,6 @@ export function buildRoom(THREE, opts) {
   photos.traverse((o) => { if (o.isMesh && o !== photosHit) { o.castShadow = true; o.receiveShadow = true; } });
   root.add(photos);
   clickables.push({ id: 'photos', label: 'Fotowand', hint: 'Bilder von unterwegs', group: photos, anchor: new THREE.Vector3(0.2, 0.5, 0.1), main: true });
-
-  // ---------- Squash-Schläger an der Rückwand (klickbar) ----------
-  const racket = new THREE.Group();
-  racket.position.set(1.42, 0, -2.3);
-  racket.rotation.set(-0.11, 0, 0.16);
-  const rkFrame = lam(0x23272e), rkGrip = lam(0xe9e2d2);
-  racket.add(cyl(0.015, 0.016, 0.2, 12, rkGrip, 0, 0.1, 0));
-  racket.add(cyl(0.008, 0.008, 0.17, 8, rkFrame, -0.022, 0.28, 0).rotateZ(0.26));
-  racket.add(cyl(0.008, 0.008, 0.17, 8, rkFrame, 0.022, 0.28, 0).rotateZ(-0.26));
-  const rkHead = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.009, 8, 32), rkFrame);
-  rkHead.scale.set(0.9, 1.3, 1); rkHead.position.set(0, 0.49, 0);
-  racket.add(rkHead);
-  const strings = new THREE.Mesh(new THREE.CircleGeometry(0.1, 28), new THREE.MeshBasicMaterial({ color: 0x3a3f47, transparent: true, opacity: 0.22, side: THREE.DoubleSide }));
-  strings.scale.set(0.9, 1.3, 1); strings.position.set(0, 0.49, 0);
-  racket.add(strings);
-  const ball = new THREE.Mesh(new THREE.SphereGeometry(0.02, 14, 10), lam(0x15171b));
-  ball.position.set(0.16, 0.02, 0.1);
-  racket.add(ball);
-  const rkHit = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.7, 0.2), new THREE.MeshBasicMaterial({ visible: false }));
-  rkHit.position.set(0.03, 0.34, 0.04);
-  racket.add(rkHit);
-  racket.traverse((o) => { if (o.isMesh && o !== rkHit && o !== strings) { o.castShadow = true; o.receiveShadow = true; } });
-  root.add(racket);
-  clickables.push({ id: 'squash', label: 'Squash-Schläger', hint: 'Mein Sport', group: racket, anchor: new THREE.Vector3(0, 0.66, 0.05) });
 
   // ---------- Fernseher auf Lowboard ----------
   const tv = new THREE.Group();
@@ -647,13 +681,35 @@ export function buildRoom(THREE, opts) {
       seat.rotation.y = ease * Math.PI * 4;
       if (k >= 1) { hopT = -1; seat.position.y = seatY; seat.rotation.y = 0; }
     }
+    // Springerzug in einem kleinen Bogen
+    if (knightT >= 0) {
+      knightT += dt;
+      const k = Math.min(1, knightT / 0.55);
+      const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      knight.position.x = knightFrom[0] + (knightTo[0] - knightFrom[0]) * e;
+      knight.position.z = knightFrom[1] + (knightTo[1] - knightFrom[1]) * e;
+      knight.position.y = 0.0122 + Math.sin(k * Math.PI) * 0.035;
+      if (k >= 1) { knightT = -1; const tmp = knightFrom; knightFrom = knightTo; knightTo = tmp; }
+    }
   }
 
   return {
+    chess: chessApi,
     root, clickables, interests, chair: chairApi, tv: tvApi,
     screen: { mesh: screen, width: 0.592, height: 0.333 },
     window: { mesh: winView, width: 1.72, height: 1.42 },
     photos: photoList,
+    loadFullPhotos() {
+      if (this.fullPhotos) return;
+      this.fullPhotos = true;
+      photoList.forEach((p) => texLoader.load('photos/' + p.id + '.jpg', (t) => {
+        t.colorSpace = THREE.SRGBColorSpace;
+        t.anisotropy = 8;
+        if (p.mat.map) p.mat.map.dispose();
+        p.mat.map = t;
+        p.mat.needsUpdate = true;
+      }));
+    },
     tick,
   };
 }

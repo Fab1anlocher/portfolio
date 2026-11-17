@@ -24,9 +24,9 @@ const LABELS = {
   game: ['Controller', 'Eine Runde Field Goal'],
   photos: ['Fotowand', 'Bilder von unterwegs'],
   burgdorf: ['Fenster', 'Blick auf Burgdorf'],
-  squash: ['Squash-Schläger', 'Kommt zu selten zum Einsatz'],
   mate: ['El Tony Mate', 'Steht fast immer da'],
   chair: ['Bürostuhl', 'Dreht sich'],
+  chess: ['Schachbrett', 'Ein Zug'],
 };
 // Sichtbare Wegweiser im Raum. «work» ist der Beruf, «life» das Private.
 const HOT = {
@@ -40,6 +40,11 @@ const CAPTIONS = {
   3: ['Unterwegs', 'Ein paar Bilder von Reisen. Zuletzt war ich mit Freunden im Camper im Südwesten der USA und in Kalifornien. Ein Bild auswählen zeigt den Ort, die Pfeiltasten blättern.'],
   5: ['Zuhause', 'Burgdorf. Hier wohne ich, aufgewachsen bin ich ein paar Kilometer weiter im Emmental.'],
 };
+// Orte für das Rätsel auf der Fotowand (nur Bilder, deren Ort feststeht)
+const PLACES = { kyoto: 'Kyoto', sequoia: 'Sequoia-Nationalpark', sf: 'San Francisco', yosemite: 'Yosemite', singapur: 'Singapur', rom: 'Rom', nara: 'Nara', neapel: 'Neapel' };
+const QUIZ_ROUNDS = 5;
+const shuffle = (list) => { const a = [...list]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
 // Ein Satz pro Bild der Fotowand, bewusst schlicht gehalten
 const PHOTO_TEXT = {
   kyoto: 'Kyoto, spät am Abend.',
@@ -135,6 +140,63 @@ $$('[data-open]', stage).forEach((a) => {
   });
 });
 $('#caption-back').addEventListener('click', () => { if (scene) scene.goTo(0); });
+
+// Ortsrätsel auf der Fotowand, in der Art von GeoGuessr: Bild hervorheben, aus drei Orten wählen
+const quizBox = $('#quiz');
+const quizStart = $('#quiz-start');
+const quiz = { on: false, round: 0, score: 0, order: [] };
+function quizEnd() {
+  quiz.on = false;
+  quizBox.hidden = true;
+  quizBox.replaceChildren();
+  quizStart.hidden = !(scene && scene.view === 3);
+  if (scene) scene.quiz = false;
+}
+function quizButton(label, cls, onClick) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'btn ' + cls;
+  b.textContent = label;
+  b.addEventListener('click', onClick);
+  return b;
+}
+function quizRound() {
+  const id = quiz.order[quiz.round];
+  const photo = scene.room.photos.find((p) => p.id === id);
+  scene.quiz = true;
+  scene.photoSticky = photo;
+  scene.forcePhoto(photo);
+  const others = shuffle(Object.keys(PLACES).filter((k) => k !== id)).slice(0, 2);
+  const text = $('.caption-text', caption);
+  text.textContent = `Bild ${quiz.round + 1} von ${QUIZ_ROUNDS}: Wo war das?`;
+  const answers = document.createElement('div');
+  answers.className = 'quiz-answers';
+  shuffle([id, ...others]).forEach((k) => answers.appendChild(quizButton(PLACES[k], 'btn-ghost', () => {
+    const right = k === id;
+    if (right) quiz.score++;
+    text.textContent = right ? `Richtig, das ist ${PLACES[id]}.` : `Nicht ganz, das war ${PLACES[id]}.`;
+    const last = quiz.round + 1 >= QUIZ_ROUNDS;
+    quizBox.replaceChildren(quizButton(last ? 'Auswertung' : 'Nächstes Bild', 'btn-acc', () => {
+      quiz.round++;
+      if (!last) { quizRound(); return; }
+      text.textContent = `${quiz.score} von ${QUIZ_ROUNDS} Orten erkannt.`;
+      quizBox.replaceChildren(quizButton('Nochmal', 'btn-acc', startQuiz), quizButton('Rätsel beenden', 'btn-ghost', () => { quizEnd(); scene.forcePhoto(null); }));
+      quizBox.firstChild.focus();
+    }));
+    quizBox.firstChild.focus();
+  })));
+  quizBox.replaceChildren(answers);
+  quizBox.hidden = false;
+  answers.firstChild.focus();
+}
+function startQuiz() {
+  if (!scene) return;
+  quiz.on = true; quiz.round = 0; quiz.score = 0;
+  quiz.order = shuffle(Object.keys(PLACES)).slice(0, QUIZ_ROUNDS);
+  quizStart.hidden = true;
+  quizRound();
+}
+quizStart.addEventListener('click', startQuiz);
 
 // Kopfleiste: sichtbar, sobald das Zimmer fast aus dem Bild ist; markiert den Abschnitt, in dem man gerade liest
 const bar = $('#bar');
@@ -291,6 +353,7 @@ class Scene {
     el.addEventListener('click', (e) => {
       this.setPointer(e);
       if (this.view === 3) {                              // auf der Fotowand wählt ein Klick das Bild
+        if (this.quiz) return;
         this.photoSticky = this.pickPhoto();
         this.setPhoto(this.photoSticky);
         if (e.pointerType && e.pointerType !== 'mouse') this.ptr.set(-9, -9);
@@ -344,7 +407,7 @@ class Scene {
     this.hots = [];
     this.hotLayer.replaceChildren();
     // Wichtiges zuerst: so erreicht die Tabulatortaste den Computer vor dem Bürostuhl
-    const order = ['monitor', 'tv', 'game', 'photos', 'burgdorf', 'mate', 'squash', 'chair'];
+    const order = ['monitor', 'tv', 'game', 'photos', 'burgdorf', 'chess', 'mate', 'chair'];
     const rank = (c) => { const i = order.indexOf(c.id); return i < 0 ? order.length : i; };
     [...this.room.clickables].sort((a, b) => rank(a) - rank(b)).forEach((c) => {
       const l = LABELS[c.id] || [c.label, c.hint || ''];
@@ -379,6 +442,7 @@ class Scene {
   }
 
   onMove(e) {
+    this.lastInput = performance.now();
     const r = this.setPointer(e);
     if (e.pointerType === 'mouse') {
       this.mouse.x = (e.clientX - r.left) / r.width - 0.5;
@@ -412,6 +476,7 @@ class Scene {
 
   // Pfeiltasten auf der Fotowand: zum nächsten oder vorherigen Bild
   stepPhoto(dir) {
+    if (this.quiz) return;
     const list = this.room.photos;
     const i = this.photoSticky ? list.indexOf(this.photoSticky) : (dir > 0 ? -1 : 0);
     this.photoSticky = list[(i + dir + list.length) % list.length];
@@ -434,8 +499,18 @@ class Scene {
     return null;
   }
 
+  // Bild hervorheben, unabhängig vom Zeiger (für das Ortsrätsel)
+  forcePhoto(p) {
+    const q = this.quiz;
+    this.quiz = false;
+    this.setPhoto(p);
+    this.quiz = q;
+    // Im Rätsel tritt das gefragte Bild deutlich hervor
+    if (p && q) { p.group.scale.setScalar(1.2); p.group.position.z = 0.06; }
+  }
+
   setPhoto(p) {
-    if (p === this.photo) return;
+    if (p === this.photo || this.quiz) return;
     if (this.photo) { this.photo.group.scale.setScalar(1); this.photo.group.position.z = 0; }
     this.photo = p || null;
     if (p) { p.group.scale.setScalar(1.06); p.group.position.z = 0.02; }
@@ -493,6 +568,8 @@ class Scene {
   }
 
   goTo(i, instant) {
+    this.lastInput = performance.now();
+    if (i === 3) this.room.loadFullPhotos();
     const v = this.pose(i);
     if (!v) return;
     const T = this.THREE;
@@ -504,8 +581,10 @@ class Scene {
     this.t0 = performance.now();
     this.view = i;
     stage.dataset.view = String(i);
+    if (quiz.on) quizEnd();
     this.photoSticky = null;
     this.setPhoto(null);
+    quizStart.hidden = i !== 3;
     // Bildlegende für die Nahansichten
     const cap = CAPTIONS[i];
     caption.hidden = !cap;
@@ -521,8 +600,8 @@ class Scene {
     else if (id === 'photos') this.goTo(this.view === 3 ? 0 : 3);
     else if (id === 'burgdorf') this.goTo(this.view === 5 ? 0 : 5);
     else if (id === 'chair') this.room.chair.spin();
+    else if (id === 'chess') { this.room.chess.move(); toast('Schach spiele ich gern. Der Springer zieht nach f3.'); }
     else if (id === 'mate') { playSlurp(); toast('El Tony Mate. Steht bei mir fast immer auf dem Tisch.'); }
-    else if (id === 'squash') toast('Squash spiele ich gern, nur viel zu selten.');
   }
 
   // Lage des 3D-Bildschirms auf der Bühne, in Pixeln
@@ -606,6 +685,10 @@ class Scene {
     requestAnimationFrame(this.loop);
     const T = this.THREE;
     const now = performance.now();
+    // Ruhezustand: ohne Kamerafahrt und ohne Eingabe in den letzten 2,5 s reichen 24 Bilder pro Sekunde
+    const idle = !this.to && !stage.dataset.mode && now - (this.lastInput || 0) > 2500;
+    if (idle && now - (this.lastFrame || 0) < 41) return;
+    this.lastFrame = now;
     const dt = this.clock.getDelta();
     const t = this.clock.elapsedTime;
     const cs = this.camState;

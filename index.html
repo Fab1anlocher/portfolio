@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Portfolio Fabian Locher</title>
+<title>Fabian Locher · Business Engineer</title>
 <meta name="description" content="Fabian Locher, Business Engineer bei der Finform AG in Bern und Master-Student Wirtschaftsinformatik an der BFH. Werdegang, Projekte und Kontakt in einem begehbaren Arbeitszimmer.">
 <meta name="author" content="Fabian Locher">
 <meta name="theme-color" content="#1d1712">
@@ -62,7 +62,11 @@
   <div class="caption" id="caption" hidden>
     <p class="caption-title"></p>
     <p class="caption-text" aria-live="polite"></p>
-    <button type="button" class="btn btn-ghost" id="caption-back">Zurück in den Raum</button>
+    <div class="quiz" id="quiz" hidden></div>
+    <div class="caption-actions">
+      <button type="button" class="btn btn-acc" id="quiz-start" hidden>Orte raten wie bei GeoGuessr</button>
+      <button type="button" class="btn btn-ghost" id="caption-back">Zurück in den Raum</button>
+    </div>
   </div>
 
   <div class="hotspots" id="hotspots"></div>
@@ -99,10 +103,10 @@
     <section class="sec" id="ueber" aria-labelledby="h-ueber">
       <h2 id="h-ueber">Über mich</h2>
       <div class="prose">
-        <p class="lead">Ich bin Business Engineer bei der Finform AG in Bern und studiere im Master Wirtschaftsinformatik an der Berner Fachhochschule. Den Bachelor im selben Fach habe ich 2026 abgeschlossen.</p>
+        <p class="lead">Mein Weg führt von der kaufmännischen Lehre über Verkauf und Kundenberatung zur Wirtschaftsinformatik. Den Bachelor an der Berner Fachhochschule habe ich 2026 abgeschlossen, jetzt folgt dort der Master.</p>
         <p>Als Process Owner bin ich für das Incident Management zuständig und entwickle den Prozess weiter. Dazu koordiniere ich Changes, nehme Anforderungen auf, teste Releases und stimme mich mit Kunden, Partnern und der Entwicklung ab. Wo sich Handarbeit wiederholt, automatisiere ich Abläufe.</p>
         <p>Besonders interessieren mich Daten und die Frage, wie aus ihnen eine belastbare Aussage wird. Das übe ich neben Arbeit und Studium an eigenen Projekten, meist mit Zahlen aus dem Schweizer Sport.</p>
-        <p class="aside">Aufgewachsen im Emmental, wohnhaft in Burgdorf. Neben der Arbeit schaue ich viel Sport, gehe gern ins Stadion, reise und spiele ab und zu Squash.</p>
+        <p class="aside">Aufgewachsen im Emmental, wohnhaft in Burgdorf. Neben der Arbeit schaue ich viel Sport, gehe gern ins Stadion und reise. Dazu spiele ich Schach, GeoGuessr und ab und zu Squash.</p>
       </div>
     </section>
 
@@ -116,11 +120,12 @@
             <p class="entry-org">Finform AG, Bern</p>
             <p class="entry-note">Software und Services für Compliance-Prozesse im Finanzbereich, ein Joint Venture von PostFinance und Axon Ivy</p>
             <ul>
-              <li>Process Owner für das Incident Management: Analyse, Klassifizierung und Priorisierung von Incidents, Koordination bis zur Lösung, Weiterentwicklung des Prozesses</li>
-              <li>Change Management: Prüfung und Koordination von Changes, Abstimmung mit internen und externen Stakeholdern</li>
-              <li>Business Analyse: Aufnahme fachlicher Anforderungen, Analyse von Geschäfts- und Systemprozessen, Prozess- und Produktdokumentation</li>
-              <li>Testing und Fehleranalyse: fachliche Tests planen, durchführen und dokumentieren, Softwarefehler bis zur Behebung nachverfolgen</li>
-              <li>Mitarbeit in Kundenprojekten, an der Jira-Migration und an Automatisierungen</li>
+              <li>Incident Management als Process Owner verantworten und weiterentwickeln</li>
+              <li>Incidents analysieren, priorisieren und bis zur Lösung koordinieren</li>
+              <li>Changes prüfen und mit internen und externen Stakeholdern abstimmen</li>
+              <li>Fachliche Anforderungen aufnehmen, Geschäfts- und Systemprozesse analysieren</li>
+              <li>Fachliche Tests planen und dokumentieren, Fehler bis zur Behebung verfolgen</li>
+              <li>Jira Service Management konfigurieren, Jira-Migration und Automatisierungen mittragen</li>
             </ul>
           </div>
         </li>
@@ -130,9 +135,9 @@
             <h3>Account Manager</h3>
             <p class="entry-org">Radio neo1, Langnau</p>
             <ul>
-              <li>Eigenständige Kundenakquise</li>
-              <li>Persönliche und telefonische Kundenberatung</li>
-              <li>Aufbau langfristiger Kundenbeziehungen</li>
+              <li>Neukunden eigenständig akquirieren</li>
+              <li>Kunden persönlich und am Telefon beraten</li>
+              <li>Langfristige Kundenbeziehungen aufbauen</li>
             </ul>
           </div>
         </li>
@@ -142,7 +147,7 @@
             <h3>Rekrutenschule</h3>
             <p class="entry-org">Schweizer Armee, Thun</p>
             <ul>
-              <li>Truppenbuchhalter, Führung der Kompanie-Buchhaltung</li>
+              <li>Als Truppenbuchhalter die Kompanie-Buchhaltung führen</li>
               <li>Allgemeine militärische Grundausbildung</li>
             </ul>
           </div>
@@ -153,9 +158,9 @@
             <h3>HR-Assistent</h3>
             <p class="entry-org">Société des Produits Nestlé, Konolfingen</p>
             <ul>
-              <li>Auswertungen und Reporting im Personalbereich mit SAP</li>
-              <li>Bewerbermanagement mit Korrespondenz und Vorselektion</li>
-              <li>Mitentwicklung einer Mitarbeiter-App, HR-Support und Dokumentation</li>
+              <li>Auswertungen und Reporting im Personalbereich mit SAP erstellen</li>
+              <li>Bewerbungen bearbeiten, Korrespondenz führen, Vorselektion treffen</li>
+              <li>Eine Mitarbeiter-App mitentwickeln, HR-Support und Dokumentation</li>
             </ul>
           </div>
         </li>
@@ -166,21 +171,33 @@
       <h2 id="h-projekte">Projekte</h2>
       <div class="projects">
         <article class="project">
-          <p class="project-tag">Eigenprojekt · Machine Learning</p>
+          <p class="project-tag">Eigenprojekt · Machine Learning · 2026</p>
           <h3>Schwingen ML: Gang-Prognose</h3>
-          <p>Ein Modell schätzt, wer einen Gang im Schwingen gewinnt, und zeigt, worauf die Prognose beruht. Dazu kommen Schwinger-Profile, eine Karte und Auswertungen. Gedacht zur Information, nicht zum Wetten.</p>
-          <a class="project-link" href="https://schwingen-ml.vercel.app/" target="_blank" rel="noopener">schwingen-ml.vercel.app<span aria-hidden="true"> ↗</span></a>
+          <p>Wer gewinnt einen Gang im Schwingen? Ein zweistufiges Gradient-Boosting-Modell schätzt Sieg, Gestellt oder Niederlage und begründet jede Prognose je Merkmal. Eine tägliche Pipeline holt die Resultate von schlussgang.ch.</p>
+          <dl class="project-facts">
+            <div><dt>Ergebnis</dt><dd>70,3 Prozent Treffer auf 37’747 Gängen der Saison 2026, die das Modell beim Training nicht gesehen hat. Eine Elo-Prognose kommt auf 66,2 Prozent.</dd></div>
+            <div><dt>Werkzeuge</dt><dd>Python, scikit-learn, GitHub Actions, Next.js, Vercel</dd></div>
+          </dl>
+          <p class="project-links"><a class="project-link" href="https://schwingen-ml.vercel.app/" target="_blank" rel="noopener">Zur App<span aria-hidden="true"> ↗</span></a><a class="project-link" href="https://github.com/Fab1anlocher/Schwingen_ML" target="_blank" rel="noopener">Code auf GitHub<span aria-hidden="true"> ↗</span></a></p>
         </article>
         <article class="project">
-          <p class="project-tag">Eigenprojekt · Datenjournalismus</p>
+          <p class="project-tag">Eigenprojekt · Datenanalyse · 2026</p>
           <h3>Blauer Himmel, mehr Nummern?</h3>
-          <p>Eine Hornussen-Datengeschichte: 13’793 Meisterschaftsspiele von 2013 bis 2025, verbunden mit Wetterdaten aus der ERA5-Reanalyse. Ergebnis: Bei wolkenlosem Himmel fallen 51 Prozent mehr Nummern.</p>
-          <a class="project-link" href="https://hornussen.vercel.app/" target="_blank" rel="noopener">hornussen.vercel.app<span aria-hidden="true"> ↗</span></a>
+          <p>Stimmt die Hornusser-Weisheit, dass bei blauem Himmel mehr Nummern fallen? Eine «Nummer» ist ein verpasster Nouss. Dafür habe ich 13’793 Meisterschaftsspiele von 2013 bis 2025 mit stündlichen Wetterdaten aus der ERA5-Reanalyse verbunden.</p>
+          <dl class="project-facts">
+            <div><dt>Ergebnis</dt><dd>Bei wolkenlosem Himmel fallen 49 Prozent mehr Nummern als bei bedecktem. Der Effekt ist signifikant, tritt aber fast nur bei ganz klarem Himmel auf.</dd></div>
+            <div><dt>Werkzeuge</dt><dd>TypeScript, Datenpipeline mit unabhängiger Nachrechnung, Next.js, Vercel</dd></div>
+          </dl>
+          <p class="project-links"><a class="project-link" href="https://hornussen.vercel.app/" target="_blank" rel="noopener">Zur Datengeschichte<span aria-hidden="true"> ↗</span></a><a class="project-link" href="https://github.com/Fab1anlocher/Hornussen" target="_blank" rel="noopener">Code auf GitHub<span aria-hidden="true"> ↗</span></a></p>
         </article>
         <article class="project">
           <p class="project-tag">Bachelorarbeit · BFH · 2026</p>
-          <h3>KI-personalisierte Abstimmungswerbung</h3>
-          <p>Wie wirkt Abstimmungswerbung, die eine KI auf die einzelne Person zuschneidet? Dafür habe ich einen Werbe-Generator und eine Umfrageplattform gebaut und die Wirkung in einem Experiment mit 125 Teilnehmenden gemessen.</p>
+          <h3>Der Einfluss KI-personalisierter Abstimmungswerbung auf die Wahlabsichten in der Schweiz</h3>
+          <p>Wie wirkt Abstimmungswerbung, die eine KI auf die einzelne Person zuschneidet? Ich habe einen Generator für personalisierte Werbebilder und eine Umfrageplattform gebaut und die Wirkung in einem Experiment mit 125 Teilnehmenden zu zwei Abstimmungen vom Juni 2026 gemessen.</p>
+          <dl class="project-facts">
+            <div><dt>Werkzeuge</dt><dd>Next.js, TypeScript, Supabase, Google Gemini, Vercel</dd></div>
+          </dl>
+          <p class="project-links"><a class="project-link" href="https://ai-political-ads.vercel.app/" target="_blank" rel="noopener">Zum Generator<span aria-hidden="true"> ↗</span></a><a class="project-link" href="https://github.com/Fab1anlocher/ba-thesis-political-ad-generator" target="_blank" rel="noopener">Code Generator<span aria-hidden="true"> ↗</span></a><a class="project-link" href="https://github.com/Fab1anlocher/ba-thesis-survey" target="_blank" rel="noopener">Code Umfrage<span aria-hidden="true"> ↗</span></a></p>
         </article>
       </div>
     </section>
@@ -222,9 +239,9 @@
     <section class="sec" id="skills" aria-labelledby="h-skills">
       <h2 id="h-skills">Skills und Sprachen</h2>
       <dl class="skillset">
-        <div><dt>Täglich im Job</dt><dd><ul class="chips"><li>Jira</li><li>Confluence</li></ul></dd></div>
+        <div><dt>Täglich im Job</dt><dd><ul class="chips"><li>Jira Service Management</li><li>Confluence</li></ul></dd></div>
         <div><dt>Wöchentlich</dt><dd><ul class="chips"><li>SQL</li><li>MS Office</li></ul></dd></div>
-        <div><dt>In eigenen Projekten</dt><dd><ul class="chips"><li>Python</li><li>GitHub</li><li>Figma</li></ul></dd></div>
+        <div><dt>In eigenen Projekten</dt><dd><ul class="chips"><li>Python</li><li>TypeScript</li><li>Next.js</li><li>GitHub</li><li>Figma</li></ul><p class="skill-note">Eingesetzt in den drei Projekten oben, der Code ist jeweils verlinkt.</p></dd></div>
         <div><dt>Grundlagen</dt><dd><ul class="chips"><li>R</li><li>SAP</li><li>HTML und CSS</li></ul></dd></div>
         <div><dt>Methoden</dt><dd>Incident- und Change-Management, Requirements Engineering nach IREB, Prozessanalyse, fachliches Testing</dd></div>
       </dl>
@@ -239,7 +256,7 @@
     <section class="sec" id="kontakt" aria-labelledby="h-kontakt">
       <h2 id="h-kontakt">Kontakt</h2>
       <div class="contact">
-        <p class="contact-lead">Am einfachsten per E-Mail. Den vollständigen Lebenslauf mit Zeugnissen schicke ich gern auf Anfrage.</p>
+        <p class="contact-lead">Am einfachsten per E-Mail. Arbeitszeugnisse und Referenzen schicke ich gern auf Anfrage.</p>
         <div class="contact-row">
           <a class="contact-mail" href="mailto:fabianlocher55@gmail.com">fabianlocher55@gmail.com</a>
           <button type="button" class="btn btn-line" data-copy="fabianlocher55@gmail.com">Adresse kopieren</button>
