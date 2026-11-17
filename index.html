@@ -46,7 +46,7 @@
     <div class="id-card">
       <h1>Fabian Locher</h1>
       <p class="id-role">Business Engineer bei der Finform AG · Master-Student Wirtschaftsinformatik, BFH</p>
-      <p class="id-claim">Ich arbeite zwischen Fachbereich und Entwicklung: Anforderungen klären, Fehler eingrenzen, Releases testen.</p>
+      <p class="id-claim">Ich verantworte bei Finform das Incident Management und arbeite zwischen Kunden, Fachbereich und Entwicklung.</p>
       <div class="id-actions">
         <a class="btn btn-acc" href="#kontakt" data-open="kontakt">Kontakt</a>
         <a class="btn btn-ghost" href="#cv">Lebenslauf lesen</a>
@@ -70,6 +70,21 @@
   <div class="stage-load" id="load" aria-hidden="true">Arbeitszimmer wird eingerichtet</div>
 </header>
 
+<!-- ===== Kopfleiste: erscheint erst, wenn das Zimmer aus dem Bild ist. So bleibt der Kontakt immer einen Klick entfernt. ===== -->
+<nav class="bar" id="bar" aria-label="Lebenslauf" hidden>
+  <div class="bar-inner">
+    <a class="bar-name" href="#stage">Fabian Locher</a>
+    <div class="bar-links">
+      <a href="#ueber">Über mich</a>
+      <a href="#erfahrung">Werdegang</a>
+      <a href="#projekte">Projekte</a>
+      <a href="#ausbildung">Ausbildung</a>
+      <a href="#skills">Skills</a>
+    </div>
+    <a class="btn btn-acc bar-cta" href="#kontakt">Kontakt</a>
+  </div>
+</nav>
+
 <!-- ===== Lebenslauf als Text: die einzige Quelle für alle Inhalte. Der Computer in der Szene zeigt Kopien dieser Abschnitte. ===== -->
 <main class="cv" id="cv">
   <div class="cv-inner">
@@ -77,7 +92,7 @@
     <dl class="facts" aria-label="Kurzprofil">
       <div><dt>Aktuell</dt><dd>Business Engineer, Finform AG</dd></div>
       <div><dt>Studium</dt><dd>MSc Wirtschaftsinformatik, BFH</dd></div>
-      <div><dt>Schwerpunkte</dt><dd>Anforderungen, Testing, Datenanalyse</dd></div>
+      <div><dt>Schwerpunkte</dt><dd>Incident- und Change-Management, Business Analyse, Testing</dd></div>
       <div><dt>Standort</dt><dd>Burgdorf, Kanton Bern</dd></div>
     </dl>
 
@@ -85,7 +100,7 @@
       <h2 id="h-ueber">Über mich</h2>
       <div class="prose">
         <p class="lead">Ich bin Business Engineer bei der Finform AG in Bern und studiere im Master Wirtschaftsinformatik an der Berner Fachhochschule. Den Bachelor im selben Fach habe ich 2026 abgeschlossen.</p>
-        <p>Im Alltag kläre ich Anforderungen, analysiere Incidents und Tickets, schreibe Bug-Stories, teste Releases und pflege die Dokumentation. Dazu verantworte ich Changes und automatisiere Abläufe, wo sich Handarbeit wiederholt.</p>
+        <p>Als Process Owner bin ich für das Incident Management zuständig und entwickle den Prozess weiter. Dazu koordiniere ich Changes, nehme Anforderungen auf, teste Releases und stimme mich mit Kunden, Partnern und der Entwicklung ab. Wo sich Handarbeit wiederholt, automatisiere ich Abläufe.</p>
         <p>Besonders interessieren mich Daten und die Frage, wie aus ihnen eine belastbare Aussage wird. Das übe ich neben Arbeit und Studium an eigenen Projekten, meist mit Zahlen aus dem Schweizer Sport.</p>
         <p class="aside">Aufgewachsen im Emmental, wohnhaft in Burgdorf. Neben der Arbeit schaue ich viel Sport, gehe gern ins Stadion, reise und spiele ab und zu Squash.</p>
       </div>
@@ -99,11 +114,13 @@
           <div class="entry-body">
             <h3>Business Engineer</h3>
             <p class="entry-org">Finform AG, Bern</p>
+            <p class="entry-note">Software und Services für Compliance-Prozesse im Finanzbereich, ein Joint Venture von PostFinance und Axon Ivy</p>
             <ul>
-              <li>Analyse, Priorisierung und Bearbeitung von Incidents und Tickets, inklusive Log-Analyse</li>
-              <li>Bug-Stories für die Entwicklung, Testing von Features, Releases und Bugfixes</li>
-              <li>Verantwortung für interne Changes und deren Umsetzung</li>
-              <li>Pflege der Produktdokumentation, Mitarbeit an der Jira-Migration und an Automatisierungslösungen</li>
+              <li>Process Owner für das Incident Management: Analyse, Klassifizierung und Priorisierung von Incidents, Koordination bis zur Lösung, Weiterentwicklung des Prozesses</li>
+              <li>Change Management: Prüfung und Koordination von Changes, Abstimmung mit internen und externen Stakeholdern</li>
+              <li>Business Analyse: Aufnahme fachlicher Anforderungen, Analyse von Geschäfts- und Systemprozessen, Prozess- und Produktdokumentation</li>
+              <li>Testing und Fehleranalyse: fachliche Tests planen, durchführen und dokumentieren, Softwarefehler bis zur Behebung nachverfolgen</li>
+              <li>Mitarbeit in Kundenprojekten, an der Jira-Migration und an Automatisierungen</li>
             </ul>
           </div>
         </li>
@@ -209,7 +226,7 @@
         <div><dt>Wöchentlich</dt><dd><ul class="chips"><li>SQL</li><li>MS Office</li></ul></dd></div>
         <div><dt>In eigenen Projekten</dt><dd><ul class="chips"><li>Python</li><li>GitHub</li><li>Figma</li></ul></dd></div>
         <div><dt>Grundlagen</dt><dd><ul class="chips"><li>R</li><li>SAP</li><li>HTML und CSS</li></ul></dd></div>
-        <div><dt>Methoden</dt><dd>Requirements Engineering nach IREB, Incident- und Change-Management, Testing</dd></div>
+        <div><dt>Methoden</dt><dd>Incident- und Change-Management, Requirements Engineering nach IREB, Prozessanalyse, fachliches Testing</dd></div>
       </dl>
       <h3 class="sub">Sprachen</h3>
       <ul class="langs">
@@ -226,6 +243,7 @@
         <div class="contact-row">
           <a class="contact-mail" href="mailto:fabianlocher55@gmail.com">fabianlocher55@gmail.com</a>
           <button type="button" class="btn btn-line" data-copy="fabianlocher55@gmail.com">Adresse kopieren</button>
+          <button type="button" class="btn btn-line" data-print hidden>Lebenslauf als PDF</button>
         </div>
         <div class="contact-row">
           <a class="btn btn-line" href="https://www.linkedin.com/in/fabian-locher" target="_blank" rel="noopener">LinkedIn-Profil<span aria-hidden="true"> ↗</span></a>

@@ -1,6 +1,6 @@
 # Portfolio Fabian Locher
 
-Persönliche Website mit Lebenslauf, Projekten und Kontakt. Der Einstieg ist ein begehbares 3D-Arbeitszimmer, darunter steht derselbe Inhalt als normaler Lebenslauf.
+Persönliche Website mit Lebenslauf, Projekten und Kontakt, live unter [fabianlocher.vercel.app](https://fabianlocher.vercel.app). Der Einstieg ist ein begehbares 3D-Arbeitszimmer, darunter steht derselbe Inhalt als normaler Lebenslauf.
 
 ## Konzept
 
@@ -8,6 +8,8 @@ Die Szene folgt einer einzigen Regel, damit nichts doppelt vorkommt:
 
 - **Am Computer steht der Beruf.** Ein Klick auf den Monitor startet eine bedienbare Oberfläche mit Über mich, Lebenslauf, Projekten, Skills, Kontakt und einem Terminal.
 - **Das Zimmer erzählt das Private.** Fernseher (Sport und Gaming), Fotowand (Reisen), Fenster (Burgdorf), dazu ein paar kleine Details.
+
+Unter der Szene steht der Lebenslauf als normaler Text. Sobald das Zimmer aus dem Bild ist, erscheint oben eine schmale Leiste mit den Abschnitten und dem Kontakt. «Lebenslauf als PDF» nutzt die Druckansicht des Browsers.
 
 Ohne WebGL, ohne JavaScript oder bei einem Ladefehler bleibt die Seite ein vollständiger Lebenslauf mit Kopfzeile.
 
@@ -17,6 +19,7 @@ Ohne WebGL, ohne JavaScript oder bei einem Ladefehler bleibt die Seite ein volls
 - [Three.js](https://threejs.org) für die Szene, erst nach dem ersten Bildaufbau nachgeladen
 - Schriften Instrument Sans und JetBrains Mono liegen im Projekt (Fontsource), es werden keine fremden Server angefragt
 - Helles und dunkles Farbschema für den Lebenslauf, Druckansicht ohne Szene
+- Typografie und Radien als Tokens in `style.css` (`--fs-*`, `--r-*`), Bedienelemente mindestens 44 px gross
 - Rücksicht auf «Bewegung reduzieren»; die Szene pausiert ausserhalb des Bildes und im Hintergrund-Tab
 
 ## Struktur
@@ -83,7 +86,7 @@ Bei jedem Push prüft eine GitHub Action (`.github/workflows/build.yml`), ob der
 2. Die Einstellungen werden erkannt (Vite, Build `npm run build`, Ausgabe `dist`). Nichts anpassen, «Deploy» klicken.
 3. Jeder weitere Push auf `main` veröffentlicht automatisch, jeder Pull Request bekommt eine eigene Vorschau.
 
-Die Adresse für `canonical`, Open Graph und die strukturierten Daten setzt der Build selbst aus der Produktionsadresse des Vercel-Projekts. Bei einer eigenen Domain in Vercel unter «Environment Variables» `SITE_URL` setzen, zum Beispiel `https://www.example.ch`.
+Die Adresse für `canonical`, Open Graph und die strukturierten Daten steht in `vite.config.js` (`PRODUCTION_URL`). Bei einer eigenen Domain entweder dort ändern oder in Vercel unter «Environment Variables» `SITE_URL` setzen. Die erste Vercel-Adresse leitet `vercel.json` dauerhaft auf die Hauptadresse um.
 
 `vercel.json` setzt eine strenge Content Security Policy: Skripte, Stile, Schriften und Bilder kommen nur von der eigenen Adresse. Wer später etwas Fremdes einbindet (zum Beispiel eine Statistik), muss die Zeile dort ergänzen.
 

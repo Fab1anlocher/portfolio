@@ -135,6 +135,32 @@ $$('[data-open]', stage).forEach((a) => {
   });
 });
 $('#caption-back').addEventListener('click', () => { if (scene) scene.goTo(0); });
+
+// Kopfleiste: sichtbar, sobald das Zimmer fast aus dem Bild ist; markiert den Abschnitt, in dem man gerade liest
+const bar = $('#bar');
+if (bar && 'IntersectionObserver' in window) {
+  bar.hidden = false;
+  new IntersectionObserver(([e]) => bar.classList.toggle('is-on', !e.isIntersecting), { rootMargin: '-120px 0px 0px 0px' }).observe(stage);
+  const links = new Map($$('.bar-links a', bar).map((a) => [a.getAttribute('href').slice(1), a]));
+  const seen = new Map();
+  links.forEach((a, id) => { const sec = document.getElementById(id); if (sec) sec.dataset.spy = ''; });
+  const spy = new IntersectionObserver((list) => {
+    list.forEach((e) => seen.set(e.target.id, e.isIntersecting));
+    const current = [...links.keys()].find((id) => seen.get(id));
+    links.forEach((a, id) => (id === current ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  $$('[data-spy]').forEach((sec) => spy.observe(sec));
+}
+
+// Lebenslauf als PDF: über die Druckansicht des Browsers, mit passendem Dateinamen
+const printBtn = $('[data-print]');
+if (printBtn && typeof window.print === 'function') {
+  printBtn.hidden = false;
+  printBtn.addEventListener('click', () => window.print());
+  const title = document.title;
+  addEventListener('beforeprint', () => { document.title = 'Lebenslauf Fabian Locher'; });
+  addEventListener('afterprint', () => { document.title = title; });
+}
 document.addEventListener('keydown', (e) => {
   if (!scene || stage.dataset.mode) return;
   if (e.key === 'Escape' && (scene.view === 3 || scene.view === 5)) scene.goTo(0);
