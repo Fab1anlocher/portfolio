@@ -44,9 +44,12 @@
 
   <div class="stage-top">
     <div class="id-card">
-      <h1>Fabian Locher</h1>
+      <div class="id-head">
+        <img class="id-photo" fetchpriority="low" decoding="async" src="/portrait.jpg" srcset="/portrait.jpg 1x, /portrait@2x.jpg 2x" width="64" height="64" alt="Porträt von Fabian Locher">
+        <h1>Fabian Locher</h1>
+      </div>
       <p class="id-role">Business Engineer bei der Finform AG · Master-Student Wirtschaftsinformatik, BFH</p>
-      <p class="id-claim">Ich verantworte bei Finform das Incident Management und arbeite zwischen Kunden, Fachbereich und Entwicklung.</p>
+      <p class="id-claim">Im Job finde ich heraus, warum etwas nicht funktioniert. In eigenen Projekten prüfe ich mit Daten, ob eine Annahme stimmt, vom Hornussen bis zur Abstimmungswerbung.</p>
       <div class="id-actions">
         <a class="btn btn-acc" href="#kontakt" data-open="kontakt">Kontakt</a>
         <a class="btn btn-ghost" href="#cv">Lebenslauf lesen</a>
@@ -95,7 +98,7 @@
 
     <dl class="facts" aria-label="Kurzprofil">
       <div><dt>Aktuell</dt><dd>Business Engineer, Finform AG</dd></div>
-      <div><dt>Studium</dt><dd>MSc Wirtschaftsinformatik, BFH</dd></div>
+      <div><dt>Studium</dt><dd>Wirtschaftsinformatik MSc, BFH</dd></div>
       <div><dt>Schwerpunkte</dt><dd>Incident- und Change-Management, Business Analyse, Testing</dd></div>
       <div><dt>Standort</dt><dd>Burgdorf, Kanton Bern</dd></div>
     </dl>
@@ -103,9 +106,9 @@
     <section class="sec" id="ueber" aria-labelledby="h-ueber">
       <h2 id="h-ueber">Über mich</h2>
       <div class="prose">
-        <p class="lead">Mein Weg führt von der kaufmännischen Lehre über Verkauf und Kundenberatung zur Wirtschaftsinformatik. Den Bachelor an der Berner Fachhochschule habe ich 2026 abgeschlossen, jetzt folgt dort der Master.</p>
-        <p>Als Process Owner bin ich für das Incident Management zuständig und entwickle den Prozess weiter. Dazu koordiniere ich Changes, nehme Anforderungen auf, teste Releases und stimme mich mit Kunden, Partnern und der Entwicklung ab. Wo sich Handarbeit wiederholt, automatisiere ich Abläufe.</p>
+        <p class="lead">Ich habe die kaufmännische Lehre bei Nestlé gemacht, vier Jahre Radiowerbung verkauft und bin über die Wirtschaftsinformatik dort angekommen, wo Fachbereich und Technik aufeinandertreffen. Den Bachelor an der Berner Fachhochschule habe ich 2026 abgeschlossen, jetzt folgt dort der Master.</p>
         <p>Besonders interessieren mich Daten und die Frage, wie aus ihnen eine belastbare Aussage wird. Das übe ich neben Arbeit und Studium an eigenen Projekten, meist mit Zahlen aus dem Schweizer Sport.</p>
+        <p>Bei Finform bin ich als Process Owner für das Incident Management zuständig und entwickle den Prozess weiter. Dazu koordiniere ich Changes, nehme Anforderungen auf, teste Releases und stimme mich mit Kunden, Partnern und der Entwicklung ab. Wo sich Handarbeit wiederholt, automatisiere ich Abläufe.</p>
         <p class="aside">Aufgewachsen im Emmental, wohnhaft in Burgdorf. Neben der Arbeit schaue ich viel Sport, gehe gern ins Stadion und reise. Dazu spiele ich Schach, GeoGuessr und ab und zu Squash.</p>
       </div>
     </section>
@@ -120,11 +123,12 @@
             <p class="entry-org">Finform AG, Bern</p>
             <p class="entry-note">Software und Services für Compliance-Prozesse im Finanzbereich, ein Joint Venture von PostFinance und Axon Ivy</p>
             <ul>
-              <li>Incident Management als Process Owner verantworten und weiterentwickeln</li>
-              <li>Incidents analysieren, priorisieren und bis zur Lösung koordinieren</li>
+              <li>Incident Management als Process Owner verantworten, Incidents analysieren, priorisieren und bis zur Lösung koordinieren</li>
               <li>Changes prüfen und mit internen und externen Stakeholdern abstimmen</li>
               <li>Fachliche Anforderungen aufnehmen, Geschäfts- und Systemprozesse analysieren</li>
               <li>Fachliche Tests planen und dokumentieren, Fehler bis zur Behebung verfolgen</li>
+              <li>Release Notes für die Compliance Officers der Kunden schreiben, Benutzerhandbücher überarbeiten</li>
+              <li>Ansprechperson für einen externen Identifikationsdienstleister</li>
               <li>Jira Service Management konfigurieren, Jira-Migration und Automatisierungen mittragen</li>
             </ul>
           </div>
@@ -135,8 +139,8 @@
             <h3>Account Manager</h3>
             <p class="entry-org">Radio neo1, Langnau</p>
             <ul>
-              <li>Neukunden eigenständig akquirieren</li>
-              <li>Kunden persönlich und am Telefon beraten</li>
+              <li>Radiospots und Presentings, etwa für das Wetter, an Unternehmen verkaufen</li>
+              <li>Neukunden eigenständig akquirieren, persönlich und am Telefon beraten</li>
               <li>Langfristige Kundenbeziehungen aufbauen</li>
             </ul>
           </div>
@@ -169,11 +173,12 @@
 
     <section class="sec" id="projekte" aria-labelledby="h-projekte">
       <h2 id="h-projekte">Projekte</h2>
+      <p class="sec-intro">Drei Fragen, die ich mit Daten beantwortet habe.</p>
       <div class="projects">
         <article class="project">
           <p class="project-tag">Eigenprojekt · Machine Learning · 2026</p>
-          <h3>Schwingen ML: Gang-Prognose</h3>
-          <p>Wer gewinnt einen Gang im Schwingen? Ein zweistufiges Gradient-Boosting-Modell schätzt Sieg, Gestellt oder Niederlage und begründet jede Prognose je Merkmal. Eine tägliche Pipeline holt die Resultate von schlussgang.ch.</p>
+          <h3>Wer gewinnt den Gang?</h3>
+          <p>Schwingen ML schätzt für jeden Gang im Schwingen Sieg, Gestellt oder Niederlage und begründet jede Prognose je Merkmal. Dahinter steht ein zweistufiges Gradient-Boosting-Modell, eine tägliche Pipeline holt die Resultate von schlussgang.ch.</p>
           <dl class="project-facts">
             <div><dt>Ergebnis</dt><dd>70,3 Prozent Treffer auf 37’747 Gängen der Saison 2026, die das Modell beim Training nicht gesehen hat. Eine Elo-Prognose kommt auf 66,2 Prozent.</dd></div>
             <div><dt>Werkzeuge</dt><dd>Python, scikit-learn, GitHub Actions, Next.js, Vercel</dd></div>
@@ -192,8 +197,9 @@
         </article>
         <article class="project">
           <p class="project-tag">Bachelorarbeit · BFH · 2026</p>
-          <h3>Der Einfluss KI-personalisierter Abstimmungswerbung auf die Wahlabsichten in der Schweiz</h3>
-          <p>Wie wirkt Abstimmungswerbung, die eine KI auf die einzelne Person zuschneidet? Ich habe einen Generator für personalisierte Werbebilder und eine Umfrageplattform gebaut und die Wirkung in einem Experiment mit 125 Teilnehmenden zu zwei Abstimmungen vom Juni 2026 gemessen.</p>
+          <h3>Wirkt Abstimmungswerbung stärker, wenn eine KI sie persönlich zuschneidet?</h3>
+          <p class="project-sub">Titel der Arbeit: «Der Einfluss KI-personalisierter Abstimmungswerbung auf die Wahlabsichten in der Schweiz»</p>
+          <p>Ich habe einen Generator für personalisierte Werbebilder und eine Umfrageplattform gebaut und die Wirkung in einem Experiment mit 125 Teilnehmenden zu zwei Abstimmungen vom Juni 2026 gemessen.</p>
           <dl class="project-facts">
             <div><dt>Werkzeuge</dt><dd>Next.js, TypeScript, Supabase, Google Gemini, Vercel</dd></div>
           </dl>
@@ -210,6 +216,7 @@
           <div class="entry-body">
             <h3>Master of Science, Wirtschaftsinformatik</h3>
             <p class="entry-org">Berner Fachhochschule BFH</p>
+            <p>Geplante Vertiefung: Digital Finance.</p>
           </div>
         </li>
         <li class="entry">
@@ -240,23 +247,24 @@
       <h2 id="h-skills">Skills und Sprachen</h2>
       <dl class="skillset">
         <div><dt>Täglich im Job</dt><dd><ul class="chips"><li>Jira Service Management</li><li>Confluence</li></ul></dd></div>
-        <div><dt>Wöchentlich</dt><dd><ul class="chips"><li>SQL</li><li>MS Office</li></ul></dd></div>
+        <div><dt>Wöchentlich</dt><dd><ul class="chips"><li>SQL</li></ul></dd></div>
         <div><dt>In eigenen Projekten</dt><dd><ul class="chips"><li>Python</li><li>TypeScript</li><li>Next.js</li><li>GitHub</li><li>Figma</li></ul><p class="skill-note">Eingesetzt in den drei Projekten oben, der Code ist jeweils verlinkt.</p></dd></div>
+        <div><dt>KI-Werkzeuge</dt><dd><ul class="chips"><li>Claude</li><li>Gemini API</li></ul></dd></div>
         <div><dt>Grundlagen</dt><dd><ul class="chips"><li>R</li><li>SAP</li><li>HTML und CSS</li></ul></dd></div>
-        <div><dt>Methoden</dt><dd>Incident- und Change-Management, Requirements Engineering nach IREB, Prozessanalyse, fachliches Testing</dd></div>
+        <div><dt>Methoden</dt><dd>Incident- und Change-Management, Requirements Engineering nach IREB, Prozessanalyse, fachliches Testing, Scrum</dd></div>
       </dl>
       <h3 class="sub">Sprachen</h3>
       <ul class="langs">
         <li><strong>Deutsch</strong><span class="lang-level">Muttersprache · im Alltag Berndeutsch</span></li>
-        <li><strong>Englisch</strong><span class="lang-level">Arbeitssprache</span></li>
-        <li><strong>Französisch</strong><span class="lang-level">Solide Grundlage</span></li>
+        <li><strong>Englisch</strong><span class="lang-level">B2 zertifiziert · durch das Studium heute eher C1</span></li>
+        <li><strong>Französisch</strong><span class="lang-level">B1</span></li>
       </ul>
     </section>
 
     <section class="sec" id="kontakt" aria-labelledby="h-kontakt">
       <h2 id="h-kontakt">Kontakt</h2>
       <div class="contact">
-        <p class="contact-lead">Am einfachsten per E-Mail. Arbeitszeugnisse und Referenzen schicke ich gern auf Anfrage.</p>
+        <p class="contact-lead">Schreiben Sie mir zu Incident- und Prozessthemen, Business Analyse oder einem Datenprojekt. Arbeitszeugnisse und Referenzen schicke ich gern auf Anfrage.</p>
         <div class="contact-row">
           <a class="contact-mail" href="mailto:fabianlocher55@gmail.com">fabianlocher55@gmail.com</a>
           <button type="button" class="btn btn-line" data-copy="fabianlocher55@gmail.com">Adresse kopieren</button>
@@ -266,6 +274,15 @@
           <a class="btn btn-line" href="https://www.linkedin.com/in/fabian-locher" target="_blank" rel="noopener">LinkedIn-Profil<span aria-hidden="true"> ↗</span></a>
           <a class="btn btn-line" href="https://github.com/Fab1anlocher" target="_blank" rel="noopener">GitHub<span aria-hidden="true"> ↗</span></a>
           <span class="contact-place">Burgdorf, Kanton Bern</span>
+        </div>
+        <div class="ticket" id="ticket">
+          <p class="ticket-lead">Oder als Ticket, wie bei mir im Job. Thema wählen, die E-Mail ist vorbereitet:</p>
+          <ul class="ticket-topics">
+            <li><a class="btn btn-line" data-ticket="Fachlicher Austausch" href="mailto:fabianlocher55@gmail.com">Fachlicher Austausch</a></li>
+            <li><a class="btn btn-line" data-ticket="Projekt oder Zusammenarbeit" href="mailto:fabianlocher55@gmail.com">Projekt oder Zusammenarbeit</a></li>
+            <li><a class="btn btn-line" data-ticket="Stelle" href="mailto:fabianlocher55@gmail.com">Stelle</a></li>
+            <li><a class="btn btn-line" data-ticket="Einfach Hallo" href="mailto:fabianlocher55@gmail.com">Einfach Hallo</a></li>
+          </ul>
         </div>
       </div>
     </section>

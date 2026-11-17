@@ -21,11 +21,9 @@ const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)'
 const LABELS = {
   monitor: ['Computer', 'Lebenslauf, Projekte, Kontakt'],
   tv: ['Fernseher', 'Sport und Gaming'],
-  game: ['Controller', 'Eine Runde Field Goal'],
   photos: ['Fotowand', 'Bilder von unterwegs'],
   burgdorf: ['Fenster', 'Blick auf Burgdorf'],
   mate: ['El Tony Mate', 'Steht fast immer da'],
-  chair: ['Bürostuhl', 'Dreht sich'],
   chess: ['Schachbrett', 'Ein Zug'],
 };
 // Sichtbare Wegweiser im Raum. «work» ist der Beruf, «life» das Private.
@@ -223,6 +221,16 @@ if (printBtn && typeof window.print === 'function') {
   addEventListener('beforeprint', () => { document.title = 'Lebenslauf Fabian Locher'; });
   addEventListener('afterprint', () => { document.title = title; });
 }
+// Kontakt als Ticket: wie im Job bekommt jedes Anliegen eine Nummer, die E-Mail ist vorbereitet.
+// Ohne JavaScript blendet das CSS den Block aus, die normale E-Mail-Adresse reicht dann.
+{
+  const no = 'FAB-' + (100 + Math.floor(Math.random() * 900));
+  const body = 'Hallo Fabian\r\n\r\nBeschreibung:\r\n\r\n\r\nPriorität: normal\r\n\r\nFreundliche Grüsse\r\n';
+  $$('[data-ticket]').forEach((a) => {
+    a.href = 'mailto:fabianlocher55@gmail.com?subject=' + encodeURIComponent(no + ': ' + a.dataset.ticket) + '&body=' + encodeURIComponent(body);
+  });
+}
+
 document.addEventListener('keydown', (e) => {
   if (!scene || stage.dataset.mode) return;
   if (e.key === 'Escape' && (scene.view === 3 || scene.view === 5)) scene.goTo(0);
@@ -407,7 +415,7 @@ class Scene {
     this.hots = [];
     this.hotLayer.replaceChildren();
     // Wichtiges zuerst: so erreicht die Tabulatortaste den Computer vor dem Bürostuhl
-    const order = ['monitor', 'tv', 'game', 'photos', 'burgdorf', 'chess', 'mate', 'chair'];
+    const order = ['monitor', 'tv', 'photos', 'burgdorf', 'chess', 'mate'];
     const rank = (c) => { const i = order.indexOf(c.id); return i < 0 ? order.length : i; };
     [...this.room.clickables].sort((a, b) => rank(a) - rank(b)).forEach((c) => {
       const l = LABELS[c.id] || [c.label, c.hint || ''];
@@ -596,10 +604,8 @@ class Scene {
     this.interacted();
     if (id === 'monitor') this.enterOS();
     else if (id === 'tv') this.enterTV();
-    else if (id === 'game') this.enterTV(4);
     else if (id === 'photos') this.goTo(this.view === 3 ? 0 : 3);
     else if (id === 'burgdorf') this.goTo(this.view === 5 ? 0 : 5);
-    else if (id === 'chair') this.room.chair.spin();
     else if (id === 'chess') { this.room.chess.move(); toast('Schach spiele ich gern. Der Springer zieht nach f3.'); }
     else if (id === 'mate') { playSlurp(); toast('El Tony Mate. Steht bei mir fast immer auf dem Tisch.'); }
   }
@@ -685,9 +691,11 @@ class Scene {
     requestAnimationFrame(this.loop);
     const T = this.THREE;
     const now = performance.now();
-    // Ruhezustand: ohne Kamerafahrt und ohne Eingabe in den letzten 2,5 s reichen 24 Bilder pro Sekunde
-    const idle = !this.to && !stage.dataset.mode && now - (this.lastInput || 0) > 2500;
-    if (idle && now - (this.lastFrame || 0) < 41) return;
+    // Ruhezustand: ohne Kamerafahrt und ohne Eingabe reichen nach 2,5 s 24 Bilder pro Sekunde, nach 8 s noch 10.
+    // Bewegt sich dann nur noch der Fernseher, spart das auf dem Handy Akku und Rechenzeit.
+    const quiet = !this.to && !stage.dataset.mode ? now - (this.lastInput || 0) : 0;
+    const gap = quiet > 8000 ? 100 : quiet > 2500 ? 41 : 0;
+    if (gap && now - (this.lastFrame || 0) < gap) return;
     this.lastFrame = now;
     const dt = this.clock.getDelta();
     const t = this.clock.elapsedTime;
@@ -776,6 +784,8 @@ async function boot() {
   if (!hasWebGL()) { stage.dataset.state = 'static'; return; }     // ohne 3D: ruhige Kopfzeile
   stage.dataset.state = 'loading';
   try {
+    // Erst Schriften und Titelbild, dann die 3D-Szene: so steht der Text sofort und Three.js drängelt nicht vor
+    if (document.readyState !== 'complete') await new Promise((r) => addEventListener('load', r, { once: true }));
     // Three.js wird erst jetzt nachgeladen, als eigenes Paket und nur mit den Teilen, die die Szene braucht
     const THREE = await import('./scene/three.js');
     tv = createTV({ stage, onExit: () => scene.exitTV() });

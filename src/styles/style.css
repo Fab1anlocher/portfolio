@@ -119,6 +119,9 @@ button { font: inherit; color: inherit; }
   padding: 16px 18px 18px; border-radius: var(--r-md);
 }
 .id-card h1 { font-size: var(--fs-xl); line-height: 1.1; font-weight: 600; letter-spacing: -.015em; }
+/* Ausweiskarte mit Passfoto: das Bild sitzt links neben dem Namen */
+.id-head { display: flex; align-items: center; gap: 14px; }
+.id-photo { width: 64px; height: 64px; flex: none; border-radius: var(--r-sm); object-fit: cover; background: var(--on-night-2); }
 .id-role { font-size: var(--fs-sm); line-height: 1.4; color: var(--on-night-2); }
 .id-claim { font-size: var(--fs-md); line-height: 1.45; color: var(--on-night); text-wrap: pretty; }
 .id-actions { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 8px; }
@@ -502,13 +505,15 @@ button { font: inherit; color: inherit; }
 .project-facts dd { font-size: var(--fs-md); line-height: 1.5; color: var(--ink); }
 .project-links { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .skill-note { margin-top: 8px; font-size: var(--fs-sm); color: var(--muted); }
+.sec-intro { font-size: var(--fs-md); color: var(--ink-2); margin-top: -8px; }
+.project-sub { font-size: var(--fs-sm); line-height: 1.5; color: var(--muted); margin-top: -4px; }
 @container (max-width: 520px) { .project-facts > div { grid-template-columns: minmax(0, 1fr); } }
 .project {
   display: grid; gap: 10px; align-content: start; min-width: 0;
   padding: 20px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--paper-2);
 }
 .project h3 { font-size: var(--fs-lg); line-height: 1.25; font-weight: 600; text-wrap: balance; }
-.project > p:not(.project-tag):not(.project-links) { font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); max-width: 68ch; }
+.project > p:not(.project-tag):not(.project-links):not(.project-sub) { font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); max-width: 68ch; }
 .project-link { font-family: var(--mono); font-size: var(--fs-sm); justify-self: start; overflow-wrap: anywhere; display: inline-flex; align-items: center; min-height: 44px; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -538,6 +543,10 @@ button { font: inherit; color: inherit; }
 .foot a { display: inline-flex; align-items: center; min-height: 44px; }
 .btn { min-height: 44px; }
 .contact-place { color: var(--ink-2); font-size: var(--fs-md); }
+.ticket { display: grid; gap: 10px; padding-top: 6px; border-top: 1px solid var(--line); }
+.ticket-lead { padding-top: 12px; color: var(--ink-2); font-size: var(--fs-md); }
+.ticket-topics { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+@media (scripting: none) { .ticket { display: none; } }
 
 .foot { background: var(--paper); border-top: 1px solid var(--line); }
 .foot .cv-inner {
@@ -562,6 +571,7 @@ button { font: inherit; color: inherit; }
   .stage:is([data-state="loading"], [data-state="ready"]) .stage-top { right: 0; padding-bottom: 12px; }
   .stage:is([data-state="loading"], [data-state="ready"]) .id-claim { font-size: var(--fs-sm); line-height: 1.4; }
   .id-card h1 { font-size: var(--fs-lg); }
+  .id-photo { width: 48px; height: 48px; }
   .id-role { font-size: var(--fs-mono); }
   .stage-bottom { padding-block: 0 12px; }
   .hot-life .hot-label { display: none; }
@@ -582,7 +592,7 @@ button { font: inherit; color: inherit; }
   :root { --paper: #fff; --paper-2: #fff; --ink: #000; --ink-2: #222; --muted: #444; --line: #bbb; --link: #000; --acc-ink: #000; }
   body { font-size: 11pt; }
   .stage { background: none; color: #000; height: auto !important; }
-  .stage-canvas, .views, .stage-bottom, .hotspots, .tip, .stage-load, .os, .tv, .caption, .id-actions, .skip, .foot a, .toast, [data-copy] { display: none !important; }
+  .stage-canvas, .views, .stage-bottom, .hotspots, .tip, .stage-load, .os, .tv, .caption, .id-actions, .skip, .foot a, .toast, [data-copy], .ticket { display: none !important; }
   .stage.stage .stage-top { position: static; padding: 0 0 8pt; }
   .bar, [data-print] { display: none !important; }
   .contact a[href^="http"]::after { content: " " attr(href); font-size: 9pt; }

@@ -312,7 +312,6 @@ export function buildRoom(THREE, opts) {
   chair.add(chairHit);
   chair.traverse((o) => { if (o.isMesh && o !== chairHit) { o.castShadow = true; o.receiveShadow = true; } });
   root.add(chair);
-  clickables.push({ id: 'chair', label: 'Bürostuhl', hint: 'Anstossen', group: chair, anchor: new THREE.Vector3(0, 0.9, 0) });
 
   // Hüpfer: läuft über eine eigene Uhr, unabhängig von dt
   let hopT = -1, hopDur = 0;
@@ -664,7 +663,6 @@ export function buildRoom(THREE, opts) {
   tv.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
   root.add(tv);
   clickables.push({ id: 'tv', label: 'Fernseher', hint: 'Programm wechseln', group: tv, anchor: new THREE.Vector3(0, 1.15, 0) });
-  clickables.push({ id: 'game', label: 'Controller', hint: 'Gamen', group: ctrl, anchor: new THREE.Vector3(0, 0.12, 0) });
 
   const tvApi = { screenMat: pitchMat, mesh: pitch, width: 0.82, height: 0.46 };
 

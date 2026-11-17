@@ -14,6 +14,17 @@ export default defineConfig({
       name: 'site-url',
       transformIndexHtml: (html) => html.replaceAll('%SITE_URL%', siteUrl),
     },
+    {
+      // Messung im Betrieb, nur auf der Produktionsadresse: Vercel Web Analytics (ohne Cookies)
+      // und Speed Insights (echte Ladezeiten). Beide Skripte kommen von der eigenen Adresse, die CSP bleibt streng.
+      name: 'vercel-insights',
+      transformIndexHtml: () => (process.env.VERCEL_ENV === 'production'
+        ? [
+            { tag: 'script', attrs: { defer: true, src: '/_vercel/insights/script.js' }, injectTo: 'body' },
+            { tag: 'script', attrs: { defer: true, src: '/_vercel/speed-insights/script.js' }, injectTo: 'body' },
+          ]
+        : []),
+    },
   ],
   build: {
     target: 'es2020',

@@ -100,8 +100,26 @@ function schwingen(g, t) {
   g.beginPath(); g.moveTo(p1[0], p1[1]); g.lineTo(p2[0], p2[1]); g.stroke();                      // Griff an die Zwilchhose
   g.save(); g.translate(p2[0], p2[1]); g.scale(1 + throwK * 0.5, 1 - throwK * 0.35); dot(g, 0, 0, 15, '#7b5a3c'); g.restore();
   dot(g, p1[0], p1[1], 15, '#2f4f8a'); dot(g, p1[0], p1[1], 7, '#e0b48f'); dot(g, p2[0], p2[1], 7, '#e0b48f');
-  if (throwK > 0.9) { g.font = '600 24px system-ui, sans-serif'; g.textAlign = 'center'; g.fillStyle = '#1d1712'; g.fillText('Plattwurf!', W / 2, 330); }
+  if (throwK > 0.9) { g.font = '600 24px system-ui, sans-serif'; g.textAlign = 'center'; g.fillStyle = '#1d1712'; g.fillText('Plattwurf!', W / 2, 92); }
   bug(g, 'SCHLUSSGANG', '6. Gang · ' + clock(cyc * 60 / 9 * 8));
+  modelBoard(g);
+}
+
+// Einblendung wie im Fernsehen, mit echten Zahlen aus dem eigenen Projekt Schwingen ML:
+// Trefferquote auf allen Gängen der Saison 2026, die das Modell beim Training nicht gesehen hat.
+const MODEL = [['Schwingen ML', 70.3, '#d98a2b'], ['Elo-Prognose', 66.2, '#8b96a3']];
+function modelBoard(g) {
+  const x = 112, y = 270, w = W - 224, h = 76, bar = w - 196;
+  g.fillStyle = 'rgba(8,11,16,.88)'; g.fillRect(x, y, w, h);
+  g.font = MONO; g.textBaseline = 'middle'; g.textAlign = 'left';
+  g.fillStyle = '#b8c2cd'; g.fillText('TREFFER SAISON 2026 · 37’747 GÄNGE', x + 14, y + 16);
+  MODEL.forEach(([name, pct, c], i) => {
+    const ry = y + 38 + i * 22;
+    g.fillStyle = '#f2f5f9'; g.textAlign = 'left'; g.fillText(name, x + 14, ry);
+    g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(x + 130, ry - 6, bar, 12);
+    g.fillStyle = c; g.fillRect(x + 130, ry - 6, bar * pct / 100, 12);
+    g.fillStyle = '#f2f5f9'; g.textAlign = 'right'; g.fillText(pct.toFixed(1).replace('.', ',') + ' %', x + w - 14, ry);
+  });
 }
 
 // ---------- 4 · Ski Alpin ----------
