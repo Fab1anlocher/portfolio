@@ -594,7 +594,7 @@ button { font: inherit; color: inherit; }
   .stage { background: none; color: #000; height: auto !important; }
   .stage-canvas, .views, .stage-bottom, .hotspots, .tip, .stage-load, .os, .tv, .caption, .id-actions, .skip, .foot a, .toast, [data-copy], .ticket { display: none !important; }
   .stage.stage .stage-top { position: static; padding: 0 0 8pt; }
-  .bar, [data-print] { display: none !important; }
+  .bar { display: none !important; }
   .contact a[href^="http"]::after { content: " " attr(href); font-size: 9pt; }
   .stage .id-claim { display: block !important; }
   .id-card h1 { font-size: 24pt; color: #000; }

@@ -212,15 +212,6 @@ if (bar && 'IntersectionObserver' in window) {
   $$('[data-spy]').forEach((sec) => spy.observe(sec));
 }
 
-// Lebenslauf als PDF: über die Druckansicht des Browsers, mit passendem Dateinamen
-const printBtn = $('[data-print]');
-if (printBtn && typeof window.print === 'function') {
-  printBtn.hidden = false;
-  printBtn.addEventListener('click', () => window.print());
-  const title = document.title;
-  addEventListener('beforeprint', () => { document.title = 'Lebenslauf Fabian Locher'; });
-  addEventListener('afterprint', () => { document.title = title; });
-}
 // Kontakt als Ticket: wie im Job bekommt jedes Anliegen eine Nummer, die E-Mail ist vorbereitet.
 // Ohne JavaScript blendet das CSS den Block aus, die normale E-Mail-Adresse reicht dann.
 {
