@@ -204,8 +204,8 @@ function makeKick() {
 
 export const CHANNELS = [
   { no: 1, name: 'Football-Nacht', tag: 'American Football', line: 'Sonntagabend läuft bei mir oft American Football.', draw: football },
-  { no: 2, name: 'Konferenz', tag: 'Bundesliga', line: 'Mitglied beim SC Freiburg und beim FC Bayern. Ab und zu gehe ich auch gern selbst ins Stadion.',
-    note: 'Rechts im Bild läuft Kickbase mit. Das ist ein Fantasy-Manager zur Bundesliga: Man stellt ein Team aus echten Spielern zusammen und bekommt Punkte für ihre Leistung am Spieltag. Deshalb schaue ich mehr Bundesliga, als ich müsste.', draw: bundesliga },
+  { no: 2, name: 'Konferenz', tag: 'Bundesliga', line: 'Mitglied beim SC Freiburg und beim FC Bayern, ab und zu auch im Stadion.',
+    note: 'Rechts läuft Kickbase mit, ein Bundesliga-Manager mit echten Spielern. Deshalb schaue ich mehr Bundesliga, als ich müsste.', draw: bundesliga },
   { no: 3, name: 'Schlussgang', tag: 'Schwingen', line: 'Schwingen schaue ich nicht nur, ich rechne es auch nach.', link: ['Projekt Schwingen ML ansehen', 'https://schwingen-ml.vercel.app/'], draw: schwingen },
   { no: 4, name: 'Riesenslalom', tag: 'Ski Alpin', line: 'Im Winter kommt Ski Alpin dazu.', draw: ski },
   { no: 5, name: 'Konsole', tag: 'Gaming', line: 'Zwischendurch wird gezockt, etwa GeoGuessr und bald GTA 6. Hier gibt es Field Goals, nach drei Fehlversuchen ist Schluss.', game: true },
